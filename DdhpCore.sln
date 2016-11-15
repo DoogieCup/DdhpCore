@@ -18,13 +18,11 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Micros.Runner", "s
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Apps.LegacyDataImporter", "src\DdhpCore.Apps.LegacyDataImporter\DdhpCore.Apps.LegacyDataImporter.xproj", "{83E04679-D2C5-4040-83A2-1C98940422F4}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Services.EventWriter", "src\DdhpCore.Services.EventWriter\DdhpCore.Services.EventWriter.xproj", "{86DCA539-BB30-474C-BBB2-CF3A9C7F562A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4EE4D6C0-946A-4C2A-8DC8-51B98921838A}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Tests.EventWriterTests", "DdhpCore.Tests.EventWriterTests\DdhpCore.Tests.EventWriterTests.xproj", "{397E5A46-758E-4132-82D5-5EEA7B05435E}"
-EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Tests.Integration.Micros.Clubs", "src\Tests\DdhpCore.Tests.Integration.Micros.Clubs\DdhpCore.Tests.Integration.Micros.Clubs.xproj", "{6787EE65-A811-4BA0-8B92-B4F43C0D6A27}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Workers.Tests", "src\Tests\DdhpCore.Workers.Tests\DdhpCore.Workers.Tests.xproj", "{F4EB58ED-7E17-4CD8-8155-4674080C42FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,18 +46,14 @@ Global
 		{83E04679-D2C5-4040-83A2-1C98940422F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83E04679-D2C5-4040-83A2-1C98940422F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83E04679-D2C5-4040-83A2-1C98940422F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86DCA539-BB30-474C-BBB2-CF3A9C7F562A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86DCA539-BB30-474C-BBB2-CF3A9C7F562A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86DCA539-BB30-474C-BBB2-CF3A9C7F562A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86DCA539-BB30-474C-BBB2-CF3A9C7F562A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{397E5A46-758E-4132-82D5-5EEA7B05435E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{397E5A46-758E-4132-82D5-5EEA7B05435E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{397E5A46-758E-4132-82D5-5EEA7B05435E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{397E5A46-758E-4132-82D5-5EEA7B05435E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6787EE65-A811-4BA0-8B92-B4F43C0D6A27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6787EE65-A811-4BA0-8B92-B4F43C0D6A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6787EE65-A811-4BA0-8B92-B4F43C0D6A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6787EE65-A811-4BA0-8B92-B4F43C0D6A27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4EB58ED-7E17-4CD8-8155-4674080C42FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4EB58ED-7E17-4CD8-8155-4674080C42FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4EB58ED-7E17-4CD8-8155-4674080C42FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4EB58ED-7E17-4CD8-8155-4674080C42FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,8 +63,7 @@ Global
 		{30C21F92-30A1-425B-BDAE-943E75312F46} = {34522769-AB49-458A-B436-B781461F17F5}
 		{16ECEB7E-F711-4CD7-B69B-4E09B6CFD9FD} = {34522769-AB49-458A-B436-B781461F17F5}
 		{83E04679-D2C5-4040-83A2-1C98940422F4} = {34522769-AB49-458A-B436-B781461F17F5}
-		{86DCA539-BB30-474C-BBB2-CF3A9C7F562A} = {34522769-AB49-458A-B436-B781461F17F5}
-		{397E5A46-758E-4132-82D5-5EEA7B05435E} = {4EE4D6C0-946A-4C2A-8DC8-51B98921838A}
 		{6787EE65-A811-4BA0-8B92-B4F43C0D6A27} = {4EE4D6C0-946A-4C2A-8DC8-51B98921838A}
+		{F4EB58ED-7E17-4CD8-8155-4674080C42FE} = {4EE4D6C0-946A-4C2A-8DC8-51B98921838A}
 	EndGlobalSection
 EndGlobal
