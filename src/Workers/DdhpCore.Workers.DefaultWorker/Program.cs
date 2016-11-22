@@ -1,5 +1,7 @@
 ﻿namespace DdhpCore.Workers.DefaultWorker
 {
+    using DdhpCore.Workers.DefaultWorker.Models;
+    using DdhpCore.Workers.DefaultWorker.Extensions;
     using Microsoft.ServiceBus.Messaging;
     using System;
 
@@ -24,7 +26,19 @@
         public void Run()
         {
              var handler = new AzureHandler();
-             handler.RegisterListener("statImported", (message) => {});
+             var statImportedHandler = new StatImportedHandler();
+             handler.RegisterListener("statImported", statImportedHandler.StatImported);
+        }
+    }
+
+    public class StatImportedHandler
+    {        
+        public void StatImported(DdhpMessage message)
+        {
+            // Fetch all PlayedTeams for the stat round
+            // Search each played team for the player in the stat
+            // If found, update the scores and played positions
+            // Save back to the store
         }
     }
 
@@ -33,12 +47,7 @@
         public void RegisterListener(string queueName, Action<DdhpMessage> listener)
         {
             var client = QueueClient.Create(queueName);
-            client.OnMessage((message) => listener(TranslateToDdhpMessage(message)));
-        }
-
-        private DdhpMessage TranslateToDdhpMessage(BrokeredMessage message)
-        {
-            return new DdhpMessage();
+            client.OnMessage((message) => listener(message.TranslateToDdhpMessage()));
         }
     }
 
