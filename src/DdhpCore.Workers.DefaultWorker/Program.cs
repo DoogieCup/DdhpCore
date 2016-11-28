@@ -1,6 +1,5 @@
 ﻿namespace DdhpCore.Workers.DefaultWorker
 {
-    using DdhpCore.Workers.DefaultWorker.Models;
     using DdhpCore.Workers.DefaultWorker.Extensions;
     using Microsoft.ServiceBus.Messaging;
     using System;
@@ -27,32 +26,42 @@
         {
              var handler = new AzureHandler();
              var statImportedHandler = new StatImportedHandler();
-             handler.RegisterListener("statImported", statImportedHandler.StatImported);
+             handler.RegisterListener<StatImportedMessage>("statImported", statImportedHandler.StatImported);
         }
     }
 
     public class StatImportedHandler
     {        
-        public void StatImported(DdhpMessage message)
+        public void StatImported(DdhpMessage<StatImportedMessage> message)
         {
             // Fetch all PlayedTeams for the stat round
             // Search each played team for the player in the stat
             // If found, update the scores and played positions
             // Save back to the store
+
+            var round = message.Body.Round;
         }
     }
 
     public class AzureHandler
     {
-        public void RegisterListener(string queueName, Action<DdhpMessage> listener)
+        public void RegisterListener<T>(string queueName, Action<DdhpMessage<T>> listener) where T : class
         {
             var client = QueueClient.Create(queueName);
-            client.OnMessage((message) => listener(message.TranslateToDdhpMessage()));
+            client.OnMessage((message) => listener(message.TranslateToDdhpMessage<T>()));
         }
     }
 
-    public class DdhpMessage
+/*
+* This is an abstraction so that we're not bound to Queue Storage, ServiceBus, or SQS for messaging.
+*/
+    public class DdhpMessage<T> where T : class
     {
-        string Message { get; set; }
+        public T Body{get;set;}
+    }
+
+    public class StatImportedMessage
+    {
+        public int Round{get;set;}
     }
 }
