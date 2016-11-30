@@ -18,13 +18,9 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Micros.Runner", "s
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Apps.LegacyDataImporter", "src\DdhpCore.Apps.LegacyDataImporter\DdhpCore.Apps.LegacyDataImporter.xproj", "{83E04679-D2C5-4040-83A2-1C98940422F4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4EE4D6C0-946A-4C2A-8DC8-51B98921838A}"
-EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Tests.Integration.Micros.Clubs", "src\DdhpCore.Tests.Integration.Micros.Clubs\DdhpCore.Tests.Integration.Micros.Clubs.xproj", "{6787EE65-A811-4BA0-8B92-B4F43C0D6A27}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Workers.Tests", "src\DdhpCore.Workers.Tests\DdhpCore.Workers.Tests.xproj", "{F4EB58ED-7E17-4CD8-8155-4674080C42FE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workers", "Workers", "{F3EC42CC-4407-4B27-A9D3-478CB86F777A}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DdhpCore.Workers.DefaultWorker", "src\DdhpCore.Workers.DefaultWorker\DdhpCore.Workers.DefaultWorker.xproj", "{A3BBA4A3-3A0F-4A5B-B821-50F2CB567671}"
 EndProject
