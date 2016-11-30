@@ -1,15 +1,15 @@
 ﻿namespace DdhpCore.Workers.DefaultWorker
 {
     using DdhpCore.Workers.DefaultWorker.Extensions;
-    using System;
     using Nito.AsyncEx;
-    using System.Collections.Generic;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Queue;
+    using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Configuration;
     using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
     /// <summary>
@@ -21,7 +21,37 @@
     {
         public static void Main(string[] args)
         {
-            var factory = new LoggerFactory()
+           BuildLogger();
+
+           var config = new ConfigurationBuilder();
+
+           if (IsDevelopment)
+           {
+               config.AddUserSecrets();
+           }
+
+            _logger.LogDebug("Logger Configured");
+
+            using (var program = new Program())
+            {
+                program.Run();
+            }
+        }
+
+        public static bool IsDevelopment
+        {
+            get
+            {
+                bool isDevelopment;
+                bool.TryParse(Environment.GetEnvironmentVariable("IsDevelopment"), out isDevelopment);
+
+                return isDevelopment;
+            }
+        }
+
+        private static void BuildLogger()
+        {
+             _loggerFactory = new LoggerFactory()
                 .WithFilter(new FilterLoggerSettings
                 {
                     { "Microsoft", LogLevel.Warning },
@@ -32,19 +62,14 @@
             var loggingConfiguration = new ConfigurationBuilder()
                 .AddJsonFile("logging.json", optional: false, reloadOnChange: true)
                 .Build();
-            factory.AddConsole(loggingConfiguration);
+            _loggerFactory.AddConsole(loggingConfiguration);
 
-            _logger = factory.CreateLogger<Program>();
-            _logger.LogDebug("Logger Configured");
-
-            using (var program = new Program())
-            {
-                program.Run();
-            }
+            _logger = _loggerFactory.CreateLogger<Program>();
         }
 
         private CancellationTokenSource _cancel = new CancellationTokenSource();
         private static ILogger _logger;
+        private static ILoggerFactory _loggerFactory;
 
         public void Dispose()
         {
@@ -59,7 +84,7 @@
 
         public void Run()
         {
-             var handler = new QueueStorageHandler(_cancel.Token);
+             var handler = new QueueStorageHandler(_loggerFactory, _cancel.Token);
              var statImportedHandler = new StatImportedHandler();
              handler.RegisterListener<StatImportedMessage>("statImported", 
                 statImportedHandler.StatImported);
@@ -82,23 +107,26 @@
 
     public class QueueStorageHandler
     {
-        public QueueStorageHandler(CancellationToken token)
+        public QueueStorageHandler(ILoggerFactory loggerFactory, CancellationToken token)
         {
             _token = token;
+            _logger = loggerFactory.CreateLogger(typeof(QueueStorageHandler));
         }
+
+        private ILogger _logger;
+
         public void RegisterListener<T>(string queueName, 
             Action<DdhpMessage<T>> listener) where T : class
         {
-            // CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
-            //     string.Empty);
-            // CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-            // CloudQueue queue = queueClient.GetQueueReference("myqueue");
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+                string.Empty);
+            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+            CloudQueue queue = queueClient.GetQueueReference("statImported");
 
             _listeners.Add(new Func<Task>(async () => {
-                    // CloudQueueMessage message = await queue.GetMessageAsync().ConfigureAwait(false);
-                    // listener(message.TranslateToDdhpMessage<T>());
-                    // await queue.DeleteMessageAsync(message).ConfigureAwait(false);
-                    await Task.Delay(1000);
+                    CloudQueueMessage message = await queue.GetMessageAsync().ConfigureAwait(false);
+                    listener(message.TranslateToDdhpMessage<T>());
+                    await queue.DeleteMessageAsync(message).ConfigureAwait(false);
             }));
 
         }

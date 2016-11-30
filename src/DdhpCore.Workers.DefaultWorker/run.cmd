@@ -1,2 +1,2 @@
 ﻿@echo off
-dotnet DotNetCoreWebJobSample.ConsoleApp.dll
+dotnet DdhpCore.Workers.DefaultWorker.dll
